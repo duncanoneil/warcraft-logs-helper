@@ -7,9 +7,9 @@
 <body>
   <p>This form will automatically generate some decorators on a Raid Log, so that you can see uptime of Windfury Weapon on party members, along with casts of Windfury Totem and Grace of Air Totem</p>
   <form id="form" method="get" action="#">
-    <input type="text" name="reportID" value="" placeholder="eg. FwaZMDQ9qpBy7cvr">
-    <input type="text" name="fightID" value="" placeholder="ID of the fight">
-    <select type="text" name="type">
+    <p><label>Report ID</label>&nbsp;&nbsp;&nbsp;<input type="text" name="reportID" value="" placeholder="eg. FwaZMDQ9qpBy7cvr"></p>
+    <p><label>Fight ID</label>&nbsp;&nbsp;&nbsp;<input type="text" name="fightID" value="" placeholder="ID of the fight"></p>
+    <p><label>Tab</label>&nbsp;&nbsp;&nbsp;<select type="text" name="type">
       <option value="summary">Summary</option>
       <option value="healing" selected>Healing</option>
       <option value="damage-done">Damage Done</option>
@@ -22,9 +22,9 @@
       <option value="dispels" >Dispels</option>
       <option value="resources" >Resources</option>
       <option value="casts" >Casts</option>
-    </select>
-    <select type="text" name="characterRef">
-      <option value="-1">Other (enter below)</option>
+    </select></p>
+    <p><label>Character</label>&nbsp;&nbsp;&nbsp;<select type="text" name="characterRef">
+      <option value="-1">Other (enter ID -->)</option>
       <option value="1708808" >Avalosa</option>
       <option value="4459314" >Avenger</option>
       <option value="19230747" >Frostwolves</option>
@@ -35,18 +35,18 @@
       <option value="21151617" >Tribe</option>
       <option value="36336373" >Windfurybot</option>
     </select>
-    <input type="text" name="characterRefOther" value="" placeholder="eg. 1708808">
-    <input type="text" name="wftargets" value="" placeholder="Oulous, Primadonna, Ravex, Twigy">
-    <input type="submit" >
+      <input type="text" name="characterRefOther" value="" placeholder="eg. 1708808"></p>
+    <p><label>Windfury Targets</label>&nbsp;&nbsp;&nbsp;<input type="text" name="wftargets" value="" placeholder="Oulous, Primadonna, Ravex, Twigy"></p>
+    <p><input type="submit" ></p>
   </form>
 
   <h4>Finding the appropriate values</h4>
   <dl>
-    <dt>reportID</dt><dd>This is found in the main url, right after "reports": <blockquote>https://classic.warcraftlogs.com/reports/<b>6xGYKBtgXzTvHacN</b></blockquote></dd>
-    <dt>fightID</dt><dd>In the url, look for "fight=<b>20</b>"</dd>
-    <dt>type</dt><dd>Which tab should be shown</dd>
-    <dt>chracterRef</dt><dd>This is Classic Logs reference. I've populated several Crimson shamans, but you can input any character reference.<br/>To find a reference, open a report, click [+] next to a character, then look in the url for "%2421697240.0.0.Shaman%24". You want the number directly after <i>%24</i></dd>
-    <dt>wftargets</dt><dd>Comma-separated list of names to show. This would normally be everyone in the shaman's group</dd>
+    <dt>Report ID</dt><dd>This is found in the main url, right after "reports": <blockquote>https://classic.warcraftlogs.com/reports/<b>6xGYKBtgXzTvHacN</b></blockquote></dd>
+    <dt>Fight ID</dt><dd>In the url, look for "fight=<b>20</b>"</dd>
+    <dt>Tab</dt><dd>Which tab should be shown</dd>
+    <dt>Character</dt><dd>This is Classic Logs reference. I've populated several Crimson shamans, but you can input any character reference.<br/>To find a reference, open a report, click [+] next to a character, then look in the url for "%24<b>21697240</b>.0.0.Shaman%24". You want the number directly after <i>%24</i></dd>
+    <dt>Windfury Targets</dt><dd>Comma-separated list of names to show. This would normally be everyone in the shaman's group</dd>
   </dl>
 
   <script>
