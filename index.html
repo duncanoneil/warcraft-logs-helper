@@ -22,7 +22,8 @@
         </div>
         <div class="column col-12">
             <p>This form will automatically generate some decorators on a Raid Log, so that you can see uptime of
-                Windfury Weapon on party members, along with casts of Windfury Totem and Grace of Air / Tranquil Air Totem</p>
+                Windfury Weapon on party members, along with casts of Windfury Totem and Grace of Air / Tranquil Air
+                Totem</p>
         </div>
         <div class="column col-6">
             <form id="form" class="form-horizontal" method="get" action="#">
@@ -37,18 +38,19 @@
                 </div>
                 <div class="form-group">
                     <div class="col-2 col-ml-auto col-sm-12">
-                        <label>Fight ID</label>
+                        <label for="fightID">Fight ID</label>
                     </div>
                     <div class="col-9 col-sm-12">
-                        <input class="form-input" type="text" name="fightID" value="" placeholder="ID of the fight">
+                        <input class="form-input" type="text" id="fightID" name="fightID" value=""
+                               placeholder="ID of the fight">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-2 col-ml-auto col-sm-12">
-                        <label>Report Section</label>
+                        <label for="type">Report Section</label>
                     </div>
                     <div class="col-9 col-sm-12">
-                        <select class="form-select" type="text" name="type">
+                        <select class="form-select" id="type" name="type">
                             <option value="summary">Summary</option>
                             <option value="healing" selected>Healing</option>
                             <option value="damage-done">Damage Done</option>
@@ -66,33 +68,20 @@
                 </div>
                 <div class="form-group">
                     <div class="col-2 col-ml-auto col-sm-12">
-                        <label>Character</label>
+                        <label for="characterRef">Character</label>
                     </div>
-                    <div class="col-4 col-sm-12">
-                        <select class="form-select" type="text" name="characterRef">
-                            <option value="-1">Other (enter ID -->)</option>
-                            <option value="1708808">Avalosa</option>
-                            <option value="4459314">Avenger</option>
-                            <option value="19230747">Frostwolves</option>
-                            <option value="21697240">Gymrat</option>
-                            <option value="17186298">Grokka</option>
-                            <option value="24674875">Khazrim</option>
-                            <option value="859260">Raijin</option>
-                            <option value="21151617">Tribe</option>
-                            <option value="36336373">Windfurybot</option>
-                        </select>
-                    </div>
-                    <div class="col-5 col-sm-12">
-                        <input class="form-input" type="text" name="characterRefOther" value="" placeholder="eg. 1708808">
+                    <div class="col-9 col-sm-12">
+                        <input class="form-input" type="text" id="characterRef" name="characterRef" value=""
+                               placeholder="eg. 1708808">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-2 col-ml-auto col-sm-12">
-                        <label>Windfury Targets</label>
+                        <label for="wftargets">Windfury Targets</label>
                     </div>
                     <div class="col-9 col-sm-12">
-                        <input class="form-input" type="text" name="wftargets" value=""
-                               placeholder="Oulous, Primadonna, Ravex, Twigy">
+                        <input class="form-input" type="text" id="wftargets" name="wftargets" value=""
+                               placeholder="Thrall, Cairne, Rexxar">
                     </div>
                 </div>
                 <div class="form-group">
@@ -121,12 +110,15 @@
                 <dt>Report Section</dt>
                 <dd>Which section of the report should be shown</dd>
                 <dt>Character</dt>
-                <dd>This is the Classic Logs character reference. I've populated several Crimson shamans, but you can input any
-                    character reference.<br/>To find a reference, open a report, click [+] next to a character, then
-                    look in the url for "%24<b>21697240</b>.0.0.Shaman%24". You want the number directly after
-                    <i>%24</i>. These do not change from report to report, so once you've located it, make a note of it</dd>
+                <dd>This is the Classic Logs character reference.<br/>To find a reference, open a report, click [+]
+                    next to a character, then look in the url for "%24<b>21697240</b>.0.0.Shaman%24". You want the
+                    number directly after <i>%24</i>.<br/> These do not change from report to report, so once you've
+                    located it, make a note of it
+                </dd>
                 <dt>Windfury Targets</dt>
-                <dd>Comma-separated list of names to show. This would be best populated with every meleer in the shaman's group. If you leave this empty, all characters that procced windfury will be shown.</dd>
+                <dd>Comma-separated list of names to show. This would be best populated with every meleer in the
+                    shaman's group. If you leave this empty, all characters that procced windfury will be shown.
+                </dd>
             </dl>
         </div>
     </div>
@@ -140,9 +132,6 @@
         event.preventDefault();
         let formData = new FormData(form);
         let charRef = formData.get('characterRef');
-        if ("-1" === charRef) {
-            charRef = formData.get('characterRefOther');
-        }
         let baseUrl = 'https://classic.warcraftlogs.com/reports/' + formData.get('reportID') + '#type=' + formData.get('type') + '&fight=' + formData.get('fightID') + '&pins='
 
         let wfTargets = formData.get('wftargets').split(",").map(function (item) {
