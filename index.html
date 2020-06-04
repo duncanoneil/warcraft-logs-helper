@@ -3,79 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <title>Warcraft Logs Decorator Helper</title>
+    <link rel="stylesheet" href="style/spectre.min.css">
 </head>
 <body>
-  <p>This form will automatically generate some decorators on a Raid Log, so that you can see uptime of Windfury Weapon on party members, along with casts of Windfury Totem and Grace of Air Totem</p>
-  <form id="form" method="get" action="#">
-    <p><label>Report ID</label>&nbsp;&nbsp;&nbsp;<input type="text" name="reportID" value="" placeholder="eg. FwaZMDQ9qpBy7cvr"></p>
-    <p><label>Fight ID</label>&nbsp;&nbsp;&nbsp;<input type="text" name="fightID" value="" placeholder="ID of the fight"></p>
-    <p><label>Tab</label>&nbsp;&nbsp;&nbsp;<select type="text" name="type">
-      <option value="summary">Summary</option>
-      <option value="healing" selected>Healing</option>
-      <option value="damage-done">Damage Done</option>
-      <option value="damage-taken" >Damage Taken</option>
-      <option value="threat" >Threat</option>
-      <option value="buffs" >Buffs</option>
-      <option value="debuffs" >Debuffs</option>
-      <option value="deaths" >Deaths</option>
-      <option value="interrupts" >Interrupts</option>
-      <option value="dispels" >Dispels</option>
-      <option value="resources" >Resources</option>
-      <option value="casts" >Casts</option>
-    </select></p>
-    <p><label>Character</label>&nbsp;&nbsp;&nbsp;<select type="text" name="characterRef">
-      <option value="-1">Other (enter ID -->)</option>
-      <option value="1708808" >Avalosa</option>
-      <option value="4459314" >Avenger</option>
-      <option value="19230747" >Frostwolves</option>
-      <option value="21697240" >Gymrat</option>
-      <option value="17186298" >Grokka</option>
-      <option value="24674875" >Khazrim</option>
-      <option value="859260" >Raijin</option>
-      <option value="21151617" >Tribe</option>
-      <option value="36336373" >Windfurybot</option>
-    </select>
-      <input type="text" name="characterRefOther" value="" placeholder="eg. 1708808"></p>
-    <p><label>Windfury Targets</label>&nbsp;&nbsp;&nbsp;<input type="text" name="wftargets" value="" placeholder="Oulous, Primadonna, Ravex, Twigy"></p>
-    <p><input type="submit" ></p>
-  </form>
+<div class="container">
+    <div class="columns">
+        <div class="column col-12">
+            <header class="navbar">
+                <section class="navbar-section">
+                    <h1 class="navbar-brand mr-2">Warcraft Logs Decorator</h1>
+                </section>
+                <section class="navbar-section">
+                  <a href="https://classic.warcraftlogs.com/" class="btn btn-link">Warcraft Logs</a>
+                </section>
+            </header>
+        </div>
+        <div class="column col-12">
+            <p>This form will automatically generate some decorators on a Raid Log, so that you can see uptime of
+                Windfury Weapon on party members, along with casts of Windfury Totem and Grace of Air Totem</p>
+        </div>
+        <div class="column col-6">
+            <form id="form" method="get" action="#">
+                <p><label>Report ID</label>&nbsp;&nbsp;&nbsp;<input type="text" name="reportID" value=""
+                                                                    placeholder="eg. FwaZMDQ9qpBy7cvr"></p>
+                <p><label>Fight ID</label>&nbsp;&nbsp;&nbsp;<input type="text" name="fightID" value=""
+                                                                   placeholder="ID of the fight"></p>
+                <p><label>Tab</label>&nbsp;&nbsp;&nbsp;<select type="text" name="type">
+                    <option value="summary">Summary</option>
+                    <option value="healing" selected>Healing</option>
+                    <option value="damage-done">Damage Done</option>
+                    <option value="damage-taken">Damage Taken</option>
+                    <option value="threat">Threat</option>
+                    <option value="buffs">Buffs</option>
+                    <option value="debuffs">Debuffs</option>
+                    <option value="deaths">Deaths</option>
+                    <option value="interrupts">Interrupts</option>
+                    <option value="dispels">Dispels</option>
+                    <option value="resources">Resources</option>
+                    <option value="casts">Casts</option>
+                </select></p>
+                <p><label>Character</label>&nbsp;&nbsp;&nbsp;<select type="text" name="characterRef">
+                    <option value="-1">Other (enter ID -->)</option>
+                    <option value="1708808">Avalosa</option>
+                    <option value="4459314">Avenger</option>
+                    <option value="19230747">Frostwolves</option>
+                    <option value="21697240">Gymrat</option>
+                    <option value="17186298">Grokka</option>
+                    <option value="24674875">Khazrim</option>
+                    <option value="859260">Raijin</option>
+                    <option value="21151617">Tribe</option>
+                    <option value="36336373">Windfurybot</option>
+                </select>
+                    <input type="text" name="characterRefOther" value="" placeholder="eg. 1708808"></p>
+                <p><label>Windfury Targets</label>&nbsp;&nbsp;&nbsp;<input type="text" name="wftargets" value=""
+                                                                           placeholder="Oulous, Primadonna, Ravex, Twigy">
+                </p>
+                <p><input type="submit"></p>
+                <p><a href="#" class="btn btn-error" id="form-reset">Reset form</a></p>
+            </form>
+        </div>
+        <div class="column col-6">
+            <h4>Finding the appropriate values</h4>
+            <dl>
+                <dt>Report ID</dt>
+                <dd>This is found in the main url, right after "reports":
+                    <blockquote>https://classic.warcraftlogs.com/reports/<b>6xGYKBtgXzTvHacN</b></blockquote>
+                </dd>
+                <dt>Fight ID</dt>
+                <dd>In the url, look for "fight=<b>20</b>"</dd>
+                <dt>Tab</dt>
+                <dd>Which tab should be shown</dd>
+                <dt>Character</dt>
+                <dd>This is Classic Logs reference. I've populated several Crimson shamans, but you can input any
+                    character reference.<br/>To find a reference, open a report, click [+] next to a character, then
+                    look in the url for "%24<b>21697240</b>.0.0.Shaman%24". You want the number directly after
+                    <i>%24</i></dd>
+                <dt>Windfury Targets</dt>
+                <dd>Comma-separated list of names to show. This would normally be everyone in the shaman's group</dd>
+            </dl>
+        </div>
+    </div>
+</div>
+<script>
+    const form = document.getElementById('form');
+    const iframe = document.getElementById('iframe');
+    form.onsubmit = submit;
 
-  <h4>Finding the appropriate values</h4>
-  <dl>
-    <dt>Report ID</dt><dd>This is found in the main url, right after "reports": <blockquote>https://classic.warcraftlogs.com/reports/<b>6xGYKBtgXzTvHacN</b></blockquote></dd>
-    <dt>Fight ID</dt><dd>In the url, look for "fight=<b>20</b>"</dd>
-    <dt>Tab</dt><dd>Which tab should be shown</dd>
-    <dt>Character</dt><dd>This is Classic Logs reference. I've populated several Crimson shamans, but you can input any character reference.<br/>To find a reference, open a report, click [+] next to a character, then look in the url for "%24<b>21697240</b>.0.0.Shaman%24". You want the number directly after <i>%24</i></dd>
-    <dt>Windfury Targets</dt><dd>Comma-separated list of names to show. This would normally be everyone in the shaman's group</dd>
-  </dl>
-
-  <script>
-      const form = document.getElementById('form');
-      const iframe = document.getElementById('iframe');
-      form.onsubmit = submit;
-
-      function submit(event) {
-          event.preventDefault();
-          let formData = new FormData(form);
-          let charRef = formData.get('characterRef');
-          if ("-1" === charRef) {
+    function submit(event) {
+        event.preventDefault();
+        let formData = new FormData(form);
+        let charRef = formData.get('characterRef');
+        if ("-1" === charRef) {
             charRef = formData.get('characterRefOther');
-          }
-          let baseUrl = 'https://classic.warcraftlogs.com/reports/' + formData.get('reportID') + '#type=' + formData.get('type') + '&fight=' + formData.get('fightID') + '&pins='
+        }
+        let baseUrl = 'https://classic.warcraftlogs.com/reports/' + formData.get('reportID') + '#type=' + formData.get('type') + '&fight=' + formData.get('fightID') + '&pins='
 
-          let wfTargets = formData.get('wftargets').split(",").map(function(item) {
-              return '"' + item.trim() + '".0.0.Any';
-          }).join('|');
-          let wfBuffPart = '0$Separate$#244F4B$auras-gained$0$0.0.0.Any$0.0.0.Any$true$' + wfTargets + '$false$10610'
-          let wfTotemPart = '0$Separate$#dc6c49$casts$0$' + charRef + '.0.0.Shaman$0.0.0.Any$true$0.0.0.Any$true$"Windfury Totem"';
-          let graceTotemPart = '0$Separate$#909049$casts$0$' + charRef + '.0.0.Shaman$0.0.0.Any$true$0.0.0.Any$true$10627'
+        let wfTargets = formData.get('wftargets').split(",").map(function (item) {
+            return '"' + item.trim() + '".0.0.Any';
+        }).join('|');
+        let wfBuffPart = '0$Separate$#244F4B$auras-gained$0$0.0.0.Any$0.0.0.Any$true$' + wfTargets + '$false$10610'
+        let wfTotemPart = '0$Separate$#dc6c49$casts$0$' + charRef + '.0.0.Shaman$0.0.0.Any$true$0.0.0.Any$true$"Windfury Totem"';
+        let graceTotemPart = '0$Separate$#909049$casts$0$' + charRef + '.0.0.Shaman$0.0.0.Any$true$0.0.0.Any$true$10627'
 
-          let src = baseUrl + wfBuffPart + '^' + wfTotemPart + '^' + graceTotemPart
-          let win = window.open(src, '_blank');
-          win.focus();
+        let src = baseUrl + wfBuffPart + '^' + wfTotemPart + '^' + graceTotemPart
+        let win = window.open(src, '_blank');
+        win.focus();
 
-      }
-  </script>
+    }
 
+    const formReset = document.getElementById('form-reset');
+    formReset.onclick = resetForm;
+
+    function resetForm(event) {
+      form.reset();
+    }
+</script>
 </body>
 </html>
