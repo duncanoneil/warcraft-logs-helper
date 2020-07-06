@@ -5,6 +5,9 @@
     <title>Warcraft Logs Decorator Helper</title>
     <link rel="stylesheet" href="style/spectre.min.css">
     <link rel="stylesheet" href="style/spectre-icons.css">
+    <style>
+        .add-on-click { cursor: pointer; }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -125,7 +128,36 @@ class="icon icon-share"></i></a>
                     <div class="col-9 col-sm-12">
                         <input class="form-input" type="text" id="wftargets" name="wftargets" value=""
                                placeholder="Oulous, Primadonna, Ravex, Twigy">
-                        <p class="form-input-hint"><b>Rogues:</b> Botzor, Floory, Hika, Nietmachien, Primagobba, Ravex, Riper, Robé, Spiritedaway, Stronku<br /><b>Warriors:</b> Chadde, Cheezecake, Chuls, Farock, Goldcore, Guvex, Ismir, Janyon, Jokie, Lokgar, Madboy, Nif, Oulous, Peak, Primadonna, Sasacz, Skinsuit, Valarion</p>
+                        <p class="form-input-hint text-dark"><b>Rogues:</b>
+                            <span class="add-on-click">Botzor</span>, 
+                            <span class="add-on-click">Floory</span>, 
+                            <span class="add-on-click">Hika</span>, 
+                            <span class="add-on-click">Nietmachien</span>, 
+                            <span class="add-on-click">Primagobba</span>, 
+                            <span class="add-on-click">Ravex</span>, 
+                            <span class="add-on-click">Riper</span>, 
+                            <span class="add-on-click">Robé</span>, 
+                            <span class="add-on-click">Spiritedaway</span>, 
+                            <span class="add-on-click">Stronku</span><br />
+                                <b>Warriors:</b> 
+                            <span class="add-on-click">Chadde</span>,
+                            <span class="add-on-click">Cheezecake</span>,
+                            <span class="add-on-click">Chuls</span>,
+                            <span class="add-on-click">Farock</span>,
+                            <span class="add-on-click">Goldcore</span>,
+                            <span class="add-on-click">Guvex</span>,
+                            <span class="add-on-click">Ismir</span>,
+                            <span class="add-on-click">Janyon</span>,
+                            <span class="add-on-click">Jokie</span>,
+                            <span class="add-on-click">Lokgar</span>,
+                            <span class="add-on-click">Madboy</span>,
+                            <span class="add-on-click">Nif</span>,
+                            <span class="add-on-click">Oulous</span>,
+                            <span class="add-on-click">Peak</span>,
+                            <span class="add-on-click">Primadonna</span>,
+                            <span class="add-on-click">Sasacz</span>,
+                            <span class="add-on-click">Skinsuit</span>,
+                            <span class="add-on-click">Valarion</p>
                     </div>
                 </div>
                 <div class="form-group">
@@ -162,7 +194,8 @@ class="icon icon-share"></i></a>
                 </dd>
                 <dt>Windfury Targets</dt>
                 <dd>Comma-separated list of names to show. This would be best populated with every meleer in the
-                    shaman's group. If you leave this empty, all characters that procced windfury will be shown.
+                    shaman's group. If you leave this empty, all characters that procced windfury will be shown.</br/>
+                    Click on a Rogue or Warrior's name to add them to the list
                 </dd>
             </dl>
         </div>
@@ -172,6 +205,20 @@ class="icon icon-share"></i></a>
     const form = document.getElementById('form');
     const iframe = document.getElementById('iframe');
     form.onsubmit = submit;
+
+    let clickSpanList = document.getElementsByClassName('add-on-click');
+    let listLength = clickSpanList.length;
+    let i=0;
+    for (;i<listLength;i++) {
+        clickSpanList[i].addEventListener("click", addName);
+    }
+
+    function addName(e){
+        let input = document.getElementById('wftargets');
+        let name = e.target.textContent;
+        input.value = input.value + name + ', ';
+    }
+
 
     function submit(event) {
         event.preventDefault();
@@ -183,6 +230,7 @@ class="icon icon-share"></i></a>
         let baseUrl = 'https://classic.warcraftlogs.com/reports/' + formData.get('reportID') + '#type=' + formData.get('type') + '&fight=' + formData.get('fightID') + '&pins='
 
         let wfTargets = formData.get('wftargets').split(",").map(function (item) {
+            if (item.trim().length === 0) return '';
             return '"' + item.trim() + '".0.0.Any';
         }).join('|');
         let wfBuffPart = '0$Separate$#244F4B$auras-gained$0$0.0.0.Any$0.0.0.Any$true$' + wfTargets + '$false$10610'
